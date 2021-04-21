@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <style>
+        h2 {
+            padding-left: 25px;
+            color: #53b1af;
+        }
+
+        table {
+            width: 50%; /* Ширина таблицы */
+            background: white; /* Цвет фона таблицы */
+            color: white; /* Цвет текста */
+            padding-left: 20px;
+            border-spacing: 5px; /* Расстояние между ячейками */
+            text-align: center;
+        }
+
+        td, th {
+            background: #53b1af; /* Цвет фона ячеек */
+            padding: 5px; /* Поля вокруг текста */
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>SurName</th>
+            <th>E-mail</th>
+
+        </tr>
+        <tr>
+            <td th:text="${user.getId()}">Id</td>
+            <td th:text="${user.getName()}">Name</td>
+            <td th:text="${user.getLastName()}">SurName</td>
+            <td th:text="${user.getEmail()}">E-mail</td>
+            <td>
+                <form th:action="@{/edit/{id}(id=${user.id})}" th:object="${user}">
+                    <button type="submit">Change</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/delete(id=${user.id})}" th:object="${user}">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+
+        </tr>
+    </table>
+    <br/>
+    <form th:action="@{/}">
+        <button style="margin-left: 25px" type="submit">Back</button>
+    </form>
+</div>
+</body>
+</html>

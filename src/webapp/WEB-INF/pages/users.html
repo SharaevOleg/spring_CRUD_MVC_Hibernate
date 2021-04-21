@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+
+    <style>
+        h2 {
+            padding-left: 25px;
+            color: #53b1af;
+        }
+
+        table {
+            width: 50%; /* Ширина таблицы */
+            background: white; /* Цвет фона таблицы */
+            color: white; /* Цвет текста */
+            padding-left: 20px;
+            border-spacing: 5px; /* Расстояние между ячейками */
+            text-align: center;
+        }
+
+        td, th {
+            background: #53b1af; /* Цвет фона ячеек */
+            padding: 5px; /* Поля вокруг текста */
+        }
+    </style>
+
+</head>
+<body>
+<h2>Users</h2>
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>SurName</th>
+            <th>E-mail</th>
+        </tr>
+
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getId()}">Id</td>
+            <td th:text="${user.getName()}">Имя</td>
+            <td th:text="${user.getLastName()}">Фамилия</td>
+            <td th:text="${user.getEmail()}">Почтовый ящик</td>
+
+            <td>
+                <form th:action="@{users/edit/{id}(id=${user.id})}" th:object="${user}">
+                    <button type="submit">Change</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{users/delete(id=${user.id})}" th:object="${user}">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <button type="submit">Remove</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <form th:action="@{users/add}">
+        <button style="margin: 25px" type="submit">Add a new user</button>
+    </form>
+</div>
+
+</body>
+</html>
